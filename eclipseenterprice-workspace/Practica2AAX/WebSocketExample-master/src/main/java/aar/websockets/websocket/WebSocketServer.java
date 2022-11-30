@@ -1,6 +1,8 @@
 package aar.websockets.websocket;
 
+import java.io.IOException;
 import java.io.StringReader;
+import java.net.URISyntaxException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -20,16 +22,16 @@ import aar.websockets.model.Employee;
 
 @ApplicationScoped
 @ServerEndpoint("/actions")
-public class DeviceWebSocketServer {
+public class WebSocketServer {
     
-    private static DeviceSessionHandler sessionHandler = new DeviceSessionHandler();
+    private static SessionHandler sessionHandler = new SessionHandler();
     
-    public DeviceWebSocketServer() {
+    public WebSocketServer() {
         System.out.println("class loaded " + this.getClass());
     }
     
     @OnOpen
-    public void onOpen(Session session) {
+    public void onOpen(Session session) throws URISyntaxException, IOException, InterruptedException {
         sessionHandler.addSession(session);
         System.out.println("cliente suscrito, sesion activa");
     }
@@ -42,7 +44,7 @@ public class DeviceWebSocketServer {
 
     @OnError
     public void onError(Throwable error) {
-        Logger.getLogger(DeviceWebSocketServer.class.getName()).
+        Logger.getLogger(WebSocketServer.class.getName()).
                 log(Level.SEVERE, null, error);
     }
 
@@ -52,23 +54,21 @@ public class DeviceWebSocketServer {
             JsonObject jsonMessage = reader.readObject();
 
             if ("add".equals(jsonMessage.getString("action"))) {
-                Employee device = new Employee();
-                device.setName(jsonMessage.getString("name"));
-                device.setDescription(jsonMessage.getString("description"));
-                device.setType(jsonMessage.getString("type"));
-                device.setPassword("Off");
-                sessionHandler.addDevice(device);
+                Employee employee = new Employee();
+                employee.setName(jsonMessage.getString("name"));
+                employee.setPassword("password");
+                sessionHandler.addEmployee(employee);
             }
 
             if ("remove".equals(jsonMessage.getString("action"))) {
                 int id = (int) jsonMessage.getInt("id");
-                sessionHandler.removeDevice(id);
+                sessionHandler.removeEmployee(id);
             }
-
+            /*
             if ("toggle".equals(jsonMessage.getString("action"))) {
                 int id = (int) jsonMessage.getInt("id");
-                sessionHandler.toggleDevice(id);
-            }
+                sessionHandler.toggleEmployee(id);
+            }*/
         } 
     }
     
