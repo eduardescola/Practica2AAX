@@ -183,7 +183,7 @@ public class SessionHandler {
     	
     	HttpResponse<String> message = get.httpGetEmployees();
     	
-    	String employees=message.toString();
+    	String employees=message.body();
 
 		return employees;	
     }
@@ -193,7 +193,7 @@ public class SessionHandler {
     	
     	HttpResponse<String> message = get.httpGetChats();
     	
-    	String chats=message.toString();
+    	String chats=message.body();
 
 		return chats;	
     }

@@ -32,7 +32,8 @@ public class WebSocketServer {
     
     @OnOpen
     public void onOpen(Session session) throws URISyntaxException, IOException, InterruptedException {
-        sessionHandler.addSession(session);
+    	System.out.println(sessionHandler.httpGetEmployees());
+    	sessionHandler.addSession(session);
         System.out.println("cliente suscrito, sesion activa");
     }
 
