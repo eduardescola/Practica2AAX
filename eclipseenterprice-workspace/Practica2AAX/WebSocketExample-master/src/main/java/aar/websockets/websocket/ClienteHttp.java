@@ -34,4 +34,13 @@ public class ClienteHttp {
 		return response;
 	}
 	
+	public HttpResponse<String> httpGetChatsByEmployee(int id) throws URISyntaxException, IOException, InterruptedException {
+		HttpRequest request = HttpRequest.newBuilder()
+				  .uri(new URI("http://localhost:8080/RestWSExample/rest/chats/employees/"+id))
+				  .GET()
+				  .build();
+		HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+		return response;
+	}
+	
 }

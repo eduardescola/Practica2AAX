@@ -24,76 +24,55 @@ import aar.websockets.model.Employee;
 
 @ApplicationScoped
 public class SessionHandler {
-    private int employeeId = 0;
-    private int chatId = 0;
-    private final Set<Session> sessions = new HashSet<>();
-    //private final Set<Employee> employees = new HashSet<>();
-    //private final Set<Chat> chats = new HashSet<>();
+	private int employeeId = 0;
+	private int chatId = 0;
+	private final Set<Session> sessions = new HashSet<>();
+	// private final Set<Employee> employees = new HashSet<>();
+	// private final Set<Chat> chats = new HashSet<>();
 
-    public void addSession(Session session) throws URISyntaxException, IOException, InterruptedException {
-        sessions.add(session);
-        String employeesResponse = httpGetEmployees();
-        
-        JsonReader reader = Json.createReader(new StringReader(employeesResponse));
-        JsonArray arrayEmployees = reader.readArray();
-        
-        JsonProvider provider = JsonProvider.provider();
-        for (int i = 0; i<arrayEmployees.size(); i++) {
-        	JsonObject employee = arrayEmployees.getJsonObject(i);
-            JsonObject addMessage = provider.createObjectBuilder()
-                .add("action", "add")
-                .add("id", employee.getInt("id"))
-                .add("name", employee.getString("name"))
-                .add("password", employee.getString("password"))
-                .build();
-            sendToSession(session, addMessage);
-        }
-        /*for (Chat chat : chats) {
-            JsonObject addMessage = provider.createObjectBuilder()
-                .add("action", "add")
-                .add("id", chat.getId())
-                .add("name", chat.getName())
-                .add("employee1", chat.getEmployee1())
-                .add("employee2", chat.getEmployee2())
-                .build();
-            sendToSession(session, addMessage);
-        }*/
-    }
+	public void addSession(Session session) throws URISyntaxException, IOException, InterruptedException {
+		sessions.add(session);
+		String employeesResponse = httpGetEmployees();
 
-    public void removeSession(Session session) {
-        sessions.remove(session);
-    }
-    
-    public void addEmployee(Employee employee) {
-        employee.setId(employeeId);
-        employees.add(employee);
-        employeeId++;
-        JsonProvider provider = JsonProvider.provider();
-        JsonObject addMessage = provider.createObjectBuilder()
-                .add("action", "add")
-                .add("id", employee.getId())
-                .add("name", employee.getName())
-                .add("password", employee.getPassword())
-                .build();
-        sendToAllConnectedSessions(addMessage);   
-    }
-    
-    public void addChat(Chat chat) {
-    	chat.setId(chatId);
-        chats.add(chat);
-        chatId++;
-        JsonProvider provider = JsonProvider.provider();
-        JsonObject addMessage = provider.createObjectBuilder()
-        		.add("action", "add")
-                .add("id", chat.getId())
-                .add("name", chat.getName())
-                .add("employee1", chat.getEmployee1())
-                .add("employee2", chat.getEmployee2())
-                .build();
-        sendToAllConnectedSessions(addMessage);   
-    }
+		JsonReader reader = Json.createReader(new StringReader(employeesResponse));
+		JsonArray arrayEmployees = reader.readArray();
 
-    public void removeEmployee(int id) {
+		JsonProvider provider = JsonProvider.provider();
+		for (int i = 0; i < arrayEmployees.size(); i++) {
+			JsonObject employee = arrayEmployees.getJsonObject(i);
+			JsonObject addMessage = provider.createObjectBuilder().add("action", "add").add("id", employee.getInt("id"))
+					.add("name", employee.getString("name")).add("password", employee.getString("password")).build();
+			sendToSession(session, addMessage);
+		}
+		
+	}
+
+	public void removeSession(Session session) {
+		sessions.remove(session);
+	}
+
+	public void addEmployee(Employee employee) {
+		employee.setId(employeeId);
+		// employees.add(employee);
+		employeeId++;
+		JsonProvider provider = JsonProvider.provider();
+		JsonObject addMessage = provider.createObjectBuilder().add("action", "add").add("id", employee.getId())
+				.add("name", employee.getName()).add("password", employee.getPassword()).build();
+		sendToAllConnectedSessions(addMessage);
+	}
+
+	public void addChat(Chat chat) {
+		chat.setId(chatId);
+		// chats.add(chat);
+		chatId++;
+		JsonProvider provider = JsonProvider.provider();
+		JsonObject addMessage = provider.createObjectBuilder().add("action", "add").add("id", chat.getId())
+				.add("name", chat.getName()).add("employee1", chat.getEmployee1()).add("employee2", chat.getEmployee2())
+				.build();
+		sendToAllConnectedSessions(addMessage);
+	}
+	/*
+	public void removeEmployee(int id) {
         Employee employee = getEmployeeById(id);
         if (employee != null) {
             employees.remove(employee);
@@ -118,7 +97,7 @@ public class SessionHandler {
             sendToAllConnectedSessions(removeMessage);
         }   
     }
-    /*
+    
     public void toggleEmployee(int id) {
         JsonProvider provider = JsonProvider.provider();
         Employee employee = getEmployeeById(id);
@@ -154,7 +133,7 @@ public class SessionHandler {
             sendToAllConnectedSessions(updateDevMessage);
         }      
     }
-    */
+    
     private Employee getEmployeeById(int id) {
         for (Employee employee : employees) {
             if (employee.getId() == id) {
@@ -163,52 +142,69 @@ public class SessionHandler {
         }
         return null;
     }
-    
-    private Chat getChatById(int id) {
-        for (Chat chat : chats) {
-            if (chat.getId() == id) {
-                return chat;
-            }
-        }
-        return null;
-    }
+    */
+	private void getChatsByEmployee(Session session, int id) throws URISyntaxException, IOException, InterruptedException {
+		String chatsResponse = httpGetChatsByEmployee(id);
 
-    private void sendToAllConnectedSessions(JsonObject message) {  
-        for (Session session : sessions) {
-            sendToSession(session, message);
-        }
-    }
+		JsonReader reader = Json.createReader(new StringReader(chatsResponse));
+		JsonArray arrayChats = reader.readArray();
 
-    private void sendToSession(Session session, JsonObject message) {
-        try {
-            session.getBasicRemote().sendText(message.toString());
-        } catch (IOException ex) {
-            sessions.remove(session);
-            Logger.getLogger(SessionHandler.class.getName()).
-                    log(Level.SEVERE, null, ex);
-        }
-    }
-    
-    public String httpGetEmployees() throws URISyntaxException, IOException, InterruptedException{ 
-    	ClienteHttp get = new ClienteHttp();
-    	
-    	HttpResponse<String> message = get.httpGetEmployees();
-    	
-    	String employees=message.body();
+		JsonProvider provider = JsonProvider.provider();
+		for (int i = 0; i < arrayChats.size(); i++) {
+			JsonObject chat = arrayChats.getJsonObject(i);
+			JsonObject addMessage = provider.createObjectBuilder()
+					.add("action", "add")
+					.add("id", chat.getInt("id"))
+					.add("name", chat.getString("name"))
+					.add("password", chat.getString("password"))
+					.build();
+			sendToSession(session, addMessage);
+		}
+	}
 
-		return employees;	
-    }
-    
-    public String httpGetChats() throws URISyntaxException, IOException, InterruptedException{ 
-    	ClienteHttp get = new ClienteHttp();
-    	
-    	HttpResponse<String> message = get.httpGetChats();
-    	
-    	String chats=message.body();
+	private void sendToAllConnectedSessions(JsonObject message) {
+		for (Session session : sessions) {
+			sendToSession(session, message);
+		}
+	}
 
-		return chats;	
-    }
-    
-    
-    
+	private void sendToSession(Session session, JsonObject message) {
+		try {
+			session.getBasicRemote().sendText(message.toString());
+		} catch (IOException ex) {
+			sessions.remove(session);
+			Logger.getLogger(SessionHandler.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	}
+
+	public String httpGetEmployees() throws URISyntaxException, IOException, InterruptedException {
+		ClienteHttp get = new ClienteHttp();
+
+		HttpResponse<String> message = get.httpGetEmployees();
+
+		String employees = message.body();
+
+		return employees;
+	}
+
+	public String httpGetChats() throws URISyntaxException, IOException, InterruptedException {
+		ClienteHttp get = new ClienteHttp();
+
+		HttpResponse<String> message = get.httpGetChats();
+
+		String chats = message.body();
+
+		return chats;
+	}
+
+	public String httpGetChatsByEmployee(int id) throws URISyntaxException, IOException, InterruptedException {
+		ClienteHttp get = new ClienteHttp();
+
+		HttpResponse<String> message = get.httpGetChatsByEmployee(id);
+
+		String chats = message.body();
+
+		return chats;
+	}
+
 }

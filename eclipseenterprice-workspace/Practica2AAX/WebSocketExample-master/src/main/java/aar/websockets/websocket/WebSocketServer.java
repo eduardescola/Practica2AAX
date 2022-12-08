@@ -50,26 +50,14 @@ public class WebSocketServer {
     }
 
     @OnMessage
-    public void onMessage(String message, Session session) {
+    public void onMessage(String message, Session session) throws URISyntaxException, IOException, InterruptedException {
         try (JsonReader reader = Json.createReader(new StringReader(message))) {
             JsonObject jsonMessage = reader.readObject();
 
-            if ("add".equals(jsonMessage.getString("action"))) {
-                Employee employee = new Employee();
-                employee.setName(jsonMessage.getString("name"));
-                employee.setPassword("password");
-                sessionHandler.addEmployee(employee);
-            }
-
-            if ("remove".equals(jsonMessage.getString("action"))) {
+            if ("select".equals(jsonMessage.getString("action"))) {
                 int id = (int) jsonMessage.getInt("id");
-                sessionHandler.removeEmployee(id);
+                sessionHandler.httpGetChatsByEmployee(id);
             }
-            /*
-            if ("toggle".equals(jsonMessage.getString("action"))) {
-                int id = (int) jsonMessage.getInt("id");
-                sessionHandler.toggleEmployee(id);
-            }*/
         } 
     }
     
