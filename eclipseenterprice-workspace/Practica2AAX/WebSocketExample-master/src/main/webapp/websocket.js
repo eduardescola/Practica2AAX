@@ -7,7 +7,7 @@ const selectButton = document.querySelector('#select_button');
 const cancelButton = document.querySelector('#cancel_button');
 const addDeviceForm = document.querySelector('.addDeviceForm');
 const content = document.querySelector('.content');
-const employeeList = document.querySelector('select');
+const employeeList = document.querySelector("select");
 
 //FUNCTIONS
 
@@ -22,7 +22,7 @@ function createEmployeeElement(employee) {
     employeeOption.setAttribute("id", employee.id);
     employeeOption.setAttribute("class", "employee_name");
     employeeOption.innerHTML = employee.name;
-    employeeOption.appendChild(employeeOption);
+    employeeList.appendChild(employeeOption);
 
     return employeeOption;
 }
@@ -57,7 +57,7 @@ socket.onmessage = onMessage;
 showFormButton.addEventListener('click', handleShowFormButton);
 cancelButton.addEventListener('click', handleCancelButton);
 
-content.addEventListener('click', e => {
+employeeList.addEventListener('click', e => {
 	
 	if(e.target.getAttribute('data-op') === 'select') {
     	const EmployeeAction = {

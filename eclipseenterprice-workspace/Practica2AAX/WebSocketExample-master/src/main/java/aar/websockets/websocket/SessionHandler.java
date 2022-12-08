@@ -40,11 +40,14 @@ public class SessionHandler {
 		JsonProvider provider = JsonProvider.provider();
 		for (int i = 0; i < arrayEmployees.size(); i++) {
 			JsonObject employee = arrayEmployees.getJsonObject(i);
-			JsonObject addMessage = provider.createObjectBuilder().add("action", "add").add("id", employee.getInt("id"))
-					.add("name", employee.getString("name")).add("password", employee.getString("password")).build();
+			JsonObject addMessage = provider.createObjectBuilder()
+					.add("action", "add")
+					.add("id", employee.getInt("id"))
+					.add("name", employee.getString("name"))
+					.add("password", employee.getString("password"))
+					.build();
 			sendToSession(session, addMessage);
 		}
-		
 	}
 
 	public void removeSession(Session session) {
