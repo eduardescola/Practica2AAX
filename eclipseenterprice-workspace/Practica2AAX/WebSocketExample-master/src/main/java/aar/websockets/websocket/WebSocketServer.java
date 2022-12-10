@@ -18,7 +18,6 @@ import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
 
-import aar.websockets.model.Employee;
 
 @ApplicationScoped
 @ServerEndpoint("/actions")
@@ -39,7 +38,7 @@ public class WebSocketServer {
     @OnClose
     public void onClose(Session session) {   
         sessionHandler.removeSession(session);
-        System.out.println("cliente cierra conexión, sesion eliminada");
+        System.out.println("cliente cierra conexion, sesion eliminada");
     }
 
     @OnError
@@ -56,6 +55,8 @@ public class WebSocketServer {
             if ("select".equals(jsonMessage.getString("action"))) {
                 int id = (int) jsonMessage.getInt("id");
                 sessionHandler.getChatsByEmployee(session, id);
+                System.out.println("chats enviados");
+                System.out.println(sessionHandler.httpGetChatsByEmployee(id));
             }
         } 
     }

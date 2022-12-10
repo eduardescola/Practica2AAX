@@ -1,16 +1,18 @@
 //DOM elements
 
-const showFormButton = document.querySelector('.addDevice .button a');
 const selectButton = document.querySelector('#select_button');
+const selectChatButton = document.querySelector('#select_chat_button');
 const cancelButton = document.querySelector('#cancel_button');
-const addDeviceForm = document.querySelector('.addDeviceForm');
+const selectEmployeeForm = document.querySelector('.selectEmployeeForm');
+const selectChatForm = document.querySelector('.selectChatForm');
 const content = document.querySelector('.content');
 const employeeList = document.querySelector('#employee_name');
+const chatList = document.querySelector('#chat_name');
 
 //FUNCTIONS
 
 function hideForm() {	
-	document.querySelector('.addDeviceForm').style.display = 'none';
+	document.querySelector('.selectEmployeeForm').style.display = 'none';
 }
 
 
@@ -24,6 +26,16 @@ function createEmployeeElement(employee) {
     employeeList.appendChild(employeeOption);
 }
 
+function createChatElement(chat) {
+	
+    const chatOption = document.createElement("option");
+    chatOption.setAttribute("id", chat.id);
+    chatOption.setAttribute("value", chat.id);
+    chatOption.setAttribute("class", "chat_name");
+    chatOption.innerHTML = chat.name;
+    chatList.appendChild(chatOption);
+}
+
 
 function onMessage(event) {
     const message = JSON.parse(event.data);
@@ -32,8 +44,7 @@ function onMessage(event) {
     }
     
     if(message.action === "addChats"){
-		message.id
-		message
+		createChatElement(message);
 	}
     	
     if (message.action === "add") {
@@ -46,12 +57,12 @@ function onMessage(event) {
 //HANDLERS
 
 function handleShowFormButton() {
-	addDeviceForm.style.display = '';
+	selectEmployeeForm.style.display = '';
 }
 
 function handleCancelButton() {
-	addDeviceForm.style.display = 'none';
-    addDeviceForm.reset();
+	selectEmployeeForm.style.display = 'none';
+    selectEmployeeForm.reset();
 }
 
 
@@ -60,7 +71,6 @@ function handleCancelButton() {
 const socket = new WebSocket("ws://localhost:8080/websocketexample/actions");
 socket.onmessage = onMessage;
 
-showFormButton.addEventListener('click', handleShowFormButton);
 cancelButton.addEventListener('click', handleCancelButton);
 
 selectButton.addEventListener('click', () => {
@@ -69,4 +79,12 @@ selectButton.addEventListener('click', () => {
         	id: parseInt(employeeList.value)
     	};
     	socket.send(JSON.stringify(EmployeeAction));
+});
+
+selectChatButton.addEventListener('click', () => {
+    const ChatAction = {
+        action: "select",
+        id: parseInt(chatList.value)
+    };
+    socket.send(JSON.stringify(ChatAction));
 });

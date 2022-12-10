@@ -9,12 +9,11 @@
     <body>
 
         <div class="wrapper">
-            <h1>Java Websocket Home</h1>
-            <p>Welcome to the Java WebSocket Home. Click the Add a device button to start adding devices.</p>
+            <h1>Chat de Empleados</h1>
+            <p>Bienvenido al chat para empleados</p>
             <br />
-            <div class="addDevice">
-                <div class="button"> <a href="#">Add a device</a> </div>
-                <form class="addDeviceForm">
+            <div class="selectEmployee">
+                <form class="selectEmployeeForm">
                     <h3>Selecciona que empleado que eres</h3>
                     <span>Nombre:
                         <select class="select"name="employee_name" id="employee_name">
@@ -26,6 +25,22 @@
                 </form>
             </div>
             <br />
+
+            
+            <div class="selectChat">
+                <form class="selectChatForm">
+                    <h3>Selecciona el chat que quieres usar</h3>
+                    <span>Nombre:
+                        <select class="select"name="chat_name" id="chat_name">
+
+                        </select></span>
+
+                    <input id="select_chat_button" type="button" class="button" value="Select">
+                    <input id="cancel_button" type="button" class="button" value="Cancel">
+                </form>
+            </div>
+            
+
             <h3>Currently connected devices:</h3>
             <div class="content">
             </div>

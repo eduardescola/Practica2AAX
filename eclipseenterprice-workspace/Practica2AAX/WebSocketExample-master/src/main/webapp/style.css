@@ -43,14 +43,25 @@ p {
     margin-bottom: 10px;
 }
 
-.addDeviceForm {
+.selectEmployeeForm {
     text-align: left;
     width: 400px;
     margin: auto;
     padding: 10px;
 }
 
-.addDeviceForm span {
+.selectEmployeeForm span {
+    display: block;
+}
+
+.selectChatForm {
+    text-align: left;
+    width: 400px;
+    margin: auto;
+    padding: 10px;
+}
+
+.selectChatForm span {
     display: block;
 }
 
