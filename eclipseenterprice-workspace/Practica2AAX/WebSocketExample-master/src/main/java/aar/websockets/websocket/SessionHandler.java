@@ -146,7 +146,7 @@ public class SessionHandler {
         return null;
     }
     */
-	private void getChatsByEmployee(Session session, int id) throws URISyntaxException, IOException, InterruptedException {
+	public void getChatsByEmployee(Session session, int id) throws URISyntaxException, IOException, InterruptedException {
 		String chatsResponse = httpGetChatsByEmployee(id);
 
 		JsonReader reader = Json.createReader(new StringReader(chatsResponse));
@@ -156,10 +156,11 @@ public class SessionHandler {
 		for (int i = 0; i < arrayChats.size(); i++) {
 			JsonObject chat = arrayChats.getJsonObject(i);
 			JsonObject addMessage = provider.createObjectBuilder()
-					.add("action", "add")
+					.add("action", "addChats")
 					.add("id", chat.getInt("id"))
 					.add("name", chat.getString("name"))
-					.add("password", chat.getString("password"))
+					.add("employee1", chat.getInt("employee1"))
+					.add("employee2", chat.getInt("employee2"))
 					.build();
 			sendToSession(session, addMessage);
 		}

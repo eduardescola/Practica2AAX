@@ -1,5 +1,3 @@
-window.onload = init;
-
 //DOM elements
 
 const showFormButton = document.querySelector('.addDevice .button a');
@@ -7,11 +5,11 @@ const selectButton = document.querySelector('#select_button');
 const cancelButton = document.querySelector('#cancel_button');
 const addDeviceForm = document.querySelector('.addDeviceForm');
 const content = document.querySelector('.content');
-const employeeList = document.querySelector("select");
+const employeeList = document.querySelector('#employee_name');
 
 //FUNCTIONS
 
-function init() {	
+function hideForm() {	
 	document.querySelector('.addDeviceForm').style.display = 'none';
 }
 
@@ -20,18 +18,26 @@ function createEmployeeElement(employee) {
 	
     const employeeOption = document.createElement("option");
     employeeOption.setAttribute("id", employee.id);
+    employeeOption.setAttribute("value", employee.id);
     employeeOption.setAttribute("class", "employee_name");
     employeeOption.innerHTML = employee.name;
     employeeList.appendChild(employeeOption);
-
-    return employeeOption;
 }
 
 
 function onMessage(event) {
-    const employee = JSON.parse(event.data);
-    if (employee.action === "select") {
-        document.getElementById(employee.id);
+    const message = JSON.parse(event.data);
+    if (message.action === "select") {
+        document.getElementById(message.id);
+    }
+    
+    if(message.action === "addChats"){
+		message.id
+		message
+	}
+    	
+    if (message.action === "add") {
+       createEmployeeElement(message);
     }
 }
 
@@ -57,13 +63,10 @@ socket.onmessage = onMessage;
 showFormButton.addEventListener('click', handleShowFormButton);
 cancelButton.addEventListener('click', handleCancelButton);
 
-employeeList.addEventListener('click', e => {
-	
-	if(e.target.getAttribute('data-op') === 'select') {
+selectButton.addEventListener('click', () => {
     	const EmployeeAction = {
         	action: "select",
-        	id: parseInt(e.target.id)
+        	id: parseInt(employeeList.value)
     	};
     	socket.send(JSON.stringify(EmployeeAction));
-    }
 });
