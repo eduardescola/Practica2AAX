@@ -1,3 +1,5 @@
+window.onload = closeChatForm;
+
 //DOM elements
 
 const selectButton = document.querySelector('#select_button');
@@ -13,6 +15,17 @@ const chatList = document.querySelector('#chat_name');
 
 function hideForm() {	
 	document.querySelector('.selectEmployeeForm').style.display = 'none';
+	 selectEmployeeForm.reset();
+	document.querySelector('.selectChatForm').style.display = 'none';
+	 selectChatForm.reset();
+}
+
+function openChatForm() {
+  document.getElementById("myForm").style.display = "block";
+}
+
+function closeChatForm() {
+  document.getElementById("myForm").style.display = "none";
 }
 
 
@@ -87,4 +100,7 @@ selectChatButton.addEventListener('click', () => {
         id: parseInt(chatList.value)
     };
     socket.send(JSON.stringify(ChatAction));
+    hideForm();
+    openChatForm();
+    
 });

@@ -1,58 +1,61 @@
 <!DOCTYPE html>
 
 <html>
-    <head>
-        <title></title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" type="text/css" href="style.css">
-    </head>
-    <body>
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
 
-        <div class="wrapper">
-            <h1>Chat de Empleados</h1>
-            <p>Bienvenido al chat para empleados</p>
-            <br />
-            <div class="selectEmployee">
-                <form class="selectEmployeeForm">
-                    <h3>Selecciona que empleado que eres</h3>
-                    <span>Nombre:
-                        <select class="select"name="employee_name" id="employee_name">
+	<div class="wrapper">
+		<h1>Chat de Empleados</h1>
+		<p>Bienvenido al chat para empleados</p>
+		<br />
+		<div class="selectEmployee">
+			<form class="selectEmployeeForm">
+				<h3>Selecciona que empleado que eres</h3>
+				<span>Nombre: <select class="select" name="employee_name"
+					id="employee_name">
 
-                        </select></span>
+				</select></span> <input id="select_button" type="button" class="button"
+					value="Select"> <input id="cancel_button" type="button"
+					class="button" value="Cancel">
+			</form>
+		</div>
+		<br />
 
-                    <input id="select_button" type="button" class="button" value="Select">
-                    <input id="cancel_button" type="button" class="button" value="Cancel">
-                </form>
-            </div>
-            <br />
 
-            
-            <div class="selectChat">
-                <form class="selectChatForm">
-                    <h3>Selecciona el chat que quieres usar</h3>
-                    <span>Nombre:
-                        <select class="select"name="chat_name" id="chat_name">
+		<div class="selectChat">
+			<form class="selectChatForm">
+				<h3>Selecciona el chat que quieres usar</h3>
+				<span>Nombre: <select class="select" name="chat_name"
+					id="chat_name">
 
-                        </select></span>
+				</select></span> <input id="select_chat_button" type="button" class="button"
+					value="Select"> <input id="cancel_button" type="button"
+					class="button" value="Cancel">
+			</form>
+		</div>
 
-                    <input id="select_chat_button" type="button" class="button" value="Select">
-                    <input id="cancel_button" type="button" class="button" value="Cancel">
-                </form>
-            </div>
-            
+		<div class="chat-popup" id="myForm">
+			<form class="form-container">
+				<h1>Chat</h1>
 
-            <h3>Currently connected devices:</h3>
-            <div class="content">
-            </div>
-        </div>
-        <footer>
-            <div id="foot">
-            Eduard Escola Soudovski i Adrian Zapater.
-            Arquitectures per Aplicacions en Xarxa.
-            8/12/2022
-            Drets reservats &copy;
-            </div>
-        </footer>
-		<script src="websocket.js"></script>
-    </body>
+				<label for="msg"><b>Message</b></label>
+				<textarea placeholder="Type message.." name="msg" required></textarea>
+
+				<button type="submit" class="btn">Send</button>
+				<button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+			</form>
+		</div>
+
+	</div>
+	<footer>
+		<div id="foot">Eduard Escola Soudovski i Adrian Zapater.
+			Arquitectures per Aplicacions en Xarxa. 8/12/2022 Drets reservats
+			&copy;</div>
+	</footer>
+	<script src="websocket.js"></script>
+</body>
 </html>

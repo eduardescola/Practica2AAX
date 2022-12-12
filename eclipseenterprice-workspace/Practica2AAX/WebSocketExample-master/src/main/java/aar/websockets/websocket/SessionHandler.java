@@ -16,7 +16,6 @@ import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
-import javax.json.JsonValue;
 import javax.json.spi.JsonProvider;
 
 import aar.websockets.model.Chat;
@@ -27,8 +26,7 @@ public class SessionHandler {
 	private int employeeId = 0;
 	private int chatId = 0;
 	private final Set<Session> sessions = new HashSet<>();
-	// private final Set<Employee> employees = new HashSet<>();
-	// private final Set<Chat> chats = new HashSet<>();
+
 
 	public void addSession(Session session) throws URISyntaxException, IOException, InterruptedException {
 		sessions.add(session);
