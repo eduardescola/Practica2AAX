@@ -1,15 +1,17 @@
-window.onload = closeChatForm;
-
+window.onload = closeSelectChatForm;
+//window.onload =openChatForm;
 //DOM elements
 
 const selectButton = document.querySelector('#select_button');
 const selectChatButton = document.querySelector('#select_chat_button');
-const cancelButton = document.querySelector('#cancel_button');
+const sendButton = document.querySelector('#send_button');
 const selectEmployeeForm = document.querySelector('.selectEmployeeForm');
 const selectChatForm = document.querySelector('.selectChatForm');
 const content = document.querySelector('.content');
 const employeeList = document.querySelector('#employee_name');
 const chatList = document.querySelector('#chat_name');
+const messageText = document.querySelector('#msg');
+const messageList = document.querySelector('#msgList');
 
 //FUNCTIONS
 
@@ -20,12 +22,17 @@ function hideForm() {
 	 selectChatForm.reset();
 }
 
-function openChatForm() {
-  document.getElementById("myForm").style.display = "block";
+function openSelectChatForm() {
+  document.querySelector('.selectChatForm').style.display = "block";
 }
 
-function closeChatForm() {
+function closeSelectChatForm() {
+  document.querySelector('.selectChatForm').style.display = "none";
   document.getElementById("myForm").style.display = "none";
+}
+
+function openChatForm() {
+  document.getElementById("myForm").style.display = "block";
 }
 
 
@@ -49,6 +56,17 @@ function createChatElement(chat) {
     chatList.appendChild(chatOption);
 }
 
+function showMessage(msg){
+	if (chatList.value == msg.id){
+		const messageLine = document.createElement("span");
+		
+		messageLine.innerHTML = (employeeList.name +": "+msg.message);
+		messageList.appendChild(messageLine);
+		messageList.appendChild(document.createElement("br"));
+	}
+}
+
+
 
 function onMessage(event) {
     const message = JSON.parse(event.data);
@@ -61,8 +79,12 @@ function onMessage(event) {
 	}
     	
     if (message.action === "add") {
-       createEmployeeElement(message);
+      	createEmployeeElement(message);
     }
+    
+    if(message.action === "showMessage"){
+		showMessage(message);
+	}
 }
 
 
@@ -73,18 +95,11 @@ function handleShowFormButton() {
 	selectEmployeeForm.style.display = '';
 }
 
-function handleCancelButton() {
-	selectEmployeeForm.style.display = 'none';
-    selectEmployeeForm.reset();
-}
-
 
 //LISTENERS
 
 const socket = new WebSocket("ws://localhost:8080/websocketexample/actions");
 socket.onmessage = onMessage;
-
-cancelButton.addEventListener('click', handleCancelButton);
 
 selectButton.addEventListener('click', () => {
     	const EmployeeAction = {
@@ -92,6 +107,12 @@ selectButton.addEventListener('click', () => {
         	id: parseInt(employeeList.value)
     	};
     	socket.send(JSON.stringify(EmployeeAction));
+    	const chatNodes=(chatList.childNodes).length;
+    	for(let i=0; i<chatNodes; i++){
+			chatList.removeChild(chatList.childNodes[0]);
+		}
+    	openSelectChatForm();
+    	
 });
 
 selectChatButton.addEventListener('click', () => {
@@ -103,4 +124,15 @@ selectChatButton.addEventListener('click', () => {
     hideForm();
     openChatForm();
     
+});
+
+sendButton.addEventListener('click', () => {
+    const SendAction = {
+        action: "send",
+        id: parseInt(chatList.value),
+        sender: parseInt(employeeList.value),
+        msg: messageText.value
+    };
+    socket.send(JSON.stringify(SendAction));
+    messageText.value="";
 });

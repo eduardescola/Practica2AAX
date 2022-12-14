@@ -56,6 +56,14 @@ public class WebSocketServer {
                 int id = (int) jsonMessage.getInt("id");
                 sessionHandler.getChatsByEmployee(session, id);
             }
+            
+            if("send".equals(jsonMessage.getString("action"))) {
+            	int id = (int) jsonMessage.getInt("id");
+            	int sender = (int) jsonMessage.getInt("sender");
+            	String msg = (String) jsonMessage.getString("msg");
+            	sessionHandler.sendMessage(id, sender, msg);
+            	
+            }
         } 
     }
     

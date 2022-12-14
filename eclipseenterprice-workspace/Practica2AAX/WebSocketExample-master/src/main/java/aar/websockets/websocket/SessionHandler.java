@@ -72,78 +72,7 @@ public class SessionHandler {
 				.build();
 		sendToAllConnectedSessions(addMessage);
 	}
-	/*
-	public void removeEmployee(int id) {
-        Employee employee = getEmployeeById(id);
-        if (employee != null) {
-            employees.remove(employee);
-            JsonProvider provider = JsonProvider.provider();
-            JsonObject removeMessage = provider.createObjectBuilder()
-                    .add("action", "remove")
-                    .add("id", id)
-                    .build();
-            sendToAllConnectedSessions(removeMessage);
-        }   
-    }
-    
-    public void removeChat(int id) {
-    	Chat chat = getChatById(id);
-        if (chat != null) {
-        	chats.remove(chat);
-            JsonProvider provider = JsonProvider.provider();
-            JsonObject removeMessage = provider.createObjectBuilder()
-                    .add("action", "remove")
-                    .add("id", id)
-                    .build();
-            sendToAllConnectedSessions(removeMessage);
-        }   
-    }
-    
-    public void toggleEmployee(int id) {
-        JsonProvider provider = JsonProvider.provider();
-        Employee employee = getEmployeeById(id);
-        if (employee != null) {
-            if ("On".equals(employee.getPassword())) {
-                employee.setPassword("Off");
-            } else {
-                employee.setPassword("On");
-            }
-            JsonObject updateDevMessage = provider.createObjectBuilder()
-                    .add("action", "toggle")
-                    .add("id", employee.getId())
-                    .add("password", employee.getPassword())
-                    .build();
-            sendToAllConnectedSessions(updateDevMessage);
-        }      
-    }
-    
-    public void toggleChat(int id) {
-        JsonProvider provider = JsonProvider.provider();
-        Chat chat = getChatById(id);
-        if (chat != null) {
-            if ("On".equals(chat.getPassword())) {
-            	chat.setPassword("Off");
-            } else {
-            	chat.setPassword("On");
-            }
-            JsonObject updateDevMessage = provider.createObjectBuilder()
-                    .add("action", "toggle")
-                    .add("id", chat.getId())
-                    .add("password", chat.getPassword())
-                    .build();
-            sendToAllConnectedSessions(updateDevMessage);
-        }      
-    }
-    
-    private Employee getEmployeeById(int id) {
-        for (Employee employee : employees) {
-            if (employee.getId() == id) {
-                return employee;
-            }
-        }
-        return null;
-    }
-    */
+
 	public void getChatsByEmployee(Session session, int id) throws URISyntaxException, IOException, InterruptedException {
 		String chatsResponse = httpGetChatsByEmployee(id);
 
@@ -162,6 +91,17 @@ public class SessionHandler {
 					.build();
 			sendToSession(session, addMessage);
 		}
+	}
+	
+	public void sendMessage(int id, int sender, String message) throws URISyntaxException, IOException, InterruptedException {
+		JsonProvider provider = JsonProvider.provider();
+		JsonObject addMessage = provider.createObjectBuilder()
+				.add("action", "showMessage")
+				.add("id", id)
+				.add("sender", sender)
+				.add("message", message)
+				.build();
+		sendToAllConnectedSessions(addMessage);
 	}
 
 	private void sendToAllConnectedSessions(JsonObject message) {

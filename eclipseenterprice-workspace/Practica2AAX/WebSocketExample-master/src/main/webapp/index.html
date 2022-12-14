@@ -15,12 +15,10 @@
 		<div class="selectEmployee">
 			<form class="selectEmployeeForm">
 				<h3>Selecciona que empleado que eres</h3>
-				<span>Nombre: <select class="select" name="employee_name"
-					id="employee_name">
+				<span>Nombre: <select class="select" name="employee_name" id="employee_name">
 
 				</select></span> <input id="select_button" type="button" class="button"
-					value="Select"> <input id="cancel_button" type="button"
-					class="button" value="Cancel">
+					value="Select">
 			</form>
 		</div>
 		<br />
@@ -29,23 +27,20 @@
 		<div class="selectChat">
 			<form class="selectChatForm">
 				<h3>Selecciona el chat que quieres usar</h3>
-				<span>Nombre: <select class="select" name="chat_name"
-					id="chat_name">
+				<span>Nombre: <select class="select" name="chat_name" id="chat_name">
 
 				</select></span> <input id="select_chat_button" type="button" class="button"
-					value="Select"> <input id="cancel_button" type="button"
-					class="button" value="Cancel">
+					value="Select">
 			</form>
 		</div>
 
 		<div class="chat-popup" id="myForm">
 			<form class="form-container">
 				<h1>Chat</h1>
+				<span id=msgList class=chat></span> 
+				<textarea placeholder="Type message.." name="msg" id="msg" required></textarea>
 
-				<label for="msg"><b>Message</b></label>
-				<textarea placeholder="Type message.." name="msg" required></textarea>
-
-				<button type="submit" class="btn">Send</button>
+				<input id="send_button" type="button" class="SendButton" value="Send">
 				<button type="button" class="btn cancel" onclick="closeForm()">Close</button>
 			</form>
 		</div>
