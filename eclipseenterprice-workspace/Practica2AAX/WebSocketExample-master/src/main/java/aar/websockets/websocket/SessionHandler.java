@@ -73,6 +73,15 @@ public class SessionHandler {
 		sendToAllConnectedSessions(addMessage);
 	}
 
+	public String getPasswordById(int id) throws URISyntaxException, IOException, InterruptedException{
+		String employeesResponse = httpGetEmployeesById(id);
+
+		JsonReader reader = Json.createReader(new StringReader(employeesResponse));
+		JsonObject employee = reader.readObject();
+		
+		return employee.getString("password");
+	}
+	
 	public void getChatsByEmployee(Session session, int id) throws URISyntaxException, IOException, InterruptedException {
 		String chatsResponse = httpGetChatsByEmployee(id);
 
@@ -128,6 +137,16 @@ public class SessionHandler {
 
 		return employees;
 	}
+	
+	public String httpGetEmployeesById(int id) throws URISyntaxException, IOException, InterruptedException {
+		ClienteHttp get = new ClienteHttp();
+
+		HttpResponse<String> message = get.httpGetEmployeesById(id);
+
+		String employees = message.body();
+
+		return employees;
+	}
 
 	public String httpGetChats() throws URISyntaxException, IOException, InterruptedException {
 		ClienteHttp get = new ClienteHttp();
@@ -148,5 +167,15 @@ public class SessionHandler {
 
 		return chats;
 	}
+	/*
+	public String httpSamePassword(int id, String password) throws IOException, InterruptedException, URISyntaxException {
+		ClienteHttp post = new ClienteHttp();
 
+		HttpResponse<String> message = post.httpSamePassword(id, password);
+
+		String resp = message.body();
+
+		return resp;
+	}
+	*/
 }

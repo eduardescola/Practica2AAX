@@ -12,6 +12,7 @@ const employeeList = document.querySelector('#employee_name');
 const chatList = document.querySelector('#chat_name');
 const messageText = document.querySelector('#msg');
 const messageList = document.querySelector('#msgList');
+const password = document.querySelector('#employee_password');
 
 //FUNCTIONS
 
@@ -71,6 +72,7 @@ function showMessage(msg){
 function onMessage(event) {
     const message = JSON.parse(event.data);
     if (message.action === "select") {
+	
         document.getElementById(message.id);
     }
     
@@ -104,7 +106,8 @@ socket.onmessage = onMessage;
 selectButton.addEventListener('click', () => {
     	const EmployeeAction = {
         	action: "select",
-        	id: parseInt(employeeList.value)
+        	id: parseInt(employeeList.value),
+        	psw: employee_password.value 
     	};
     	socket.send(JSON.stringify(EmployeeAction));
     	const chatNodes=(chatList.childNodes).length;
@@ -117,8 +120,9 @@ selectButton.addEventListener('click', () => {
 
 selectChatButton.addEventListener('click', () => {
     const ChatAction = {
-        action: "select",
+        action: "selectChat",
         id: parseInt(chatList.value)
+  
     };
     socket.send(JSON.stringify(ChatAction));
     hideForm();

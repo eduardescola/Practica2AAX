@@ -54,7 +54,9 @@ public class WebSocketServer {
 
             if ("select".equals(jsonMessage.getString("action"))) {
                 int id = (int) jsonMessage.getInt("id");
-                sessionHandler.getChatsByEmployee(session, id);
+                String password = jsonMessage.getString("psw");
+                if(sessionHandler.getPasswordById(id).equals(password))
+                	sessionHandler.getChatsByEmployee(session, id);
             }
             
             if("send".equals(jsonMessage.getString("action"))) {

@@ -27,6 +27,18 @@ public class EmployeeDao {
     public boolean deleteEmployee(Integer id) {
     	return d.deleteEmployee(id);
     }
+    
+    public int samePassword (int id, String password) {
+    	int i=0;
+    	try {
+    		Employee employee = d.readEmployee(id);	
+    		if((employee.getPassword()).equals(password))
+    			i=1;
+    	}catch(Exception ex) {	
+            log.log(Level.SEVERE, null, ex);
+    	}
+    	return i;
+    }
 	
     public List<Employee> searchEmployee(String key, String value) {
     	try {
