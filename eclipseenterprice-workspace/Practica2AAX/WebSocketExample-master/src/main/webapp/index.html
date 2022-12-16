@@ -35,12 +35,12 @@
 
 		<div class="chat-popup" id="myForm">
 			<form class="form-container">
-				<h1>Chat</h1>
+			<input id="close_button" type="button" class="CloseButton" value="X">
+				<h1><span class="chatTitle" id="chatTitle"></span> </h1>
 				<span id=msgList class=chat></span> 
 				<textarea placeholder="Type message.." name="msg" id="msg" required></textarea>
 
 				<input id="send_button" type="button" class="SendButton" value="Send">
-				<button type="button" class="btn cancel" onclick="closeForm()">Close</button>
 			</form>
 		</div>
 

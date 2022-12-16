@@ -102,13 +102,14 @@ public class SessionHandler {
 		}
 	}
 	
-	public void sendMessage(int id, int sender, String message) throws URISyntaxException, IOException, InterruptedException {
+	public void sendMessage(int id, int sender, String message, String name) throws URISyntaxException, IOException, InterruptedException {
 		JsonProvider provider = JsonProvider.provider();
 		JsonObject addMessage = provider.createObjectBuilder()
 				.add("action", "showMessage")
 				.add("id", id)
 				.add("sender", sender)
 				.add("message", message)
+				.add("name", name)
 				.build();
 		sendToAllConnectedSessions(addMessage);
 	}

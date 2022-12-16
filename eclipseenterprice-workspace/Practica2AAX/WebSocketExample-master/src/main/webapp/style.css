@@ -1,123 +1,151 @@
 body {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 80%;
-    background-color: #1f1f1f;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 80%;
+	background-color: #1f1f1f;
 }
 
 .wrapper {
-    width: 960px;
-    margin: auto;
-    text-align: left;
-    color: #d9d9d9;
+	width: 960px;
+	margin: auto;
+	text-align: left;
+	color: #d9d9d9;
 }
 
 p {
-    text-align: left;
+	text-align: left;
 }
 
 .button {
-    display: inline;
-    color: #fff;
-    background-color: #f2791d;
-    padding: 8px;
-    margin: auto;
-    border-radius: 8px;
-    -moz-border-radius: 8px;
-    -webkit-border-radius: 8px;
-    box-shadow: none;
-    border: none;
+	display: inline;
+	color: #fff;
+	background-color: #f2791d;
+	padding: 8px;
+	margin: auto;
+	border-radius: 8px;
+	-moz-border-radius: 8px;
+	-webkit-border-radius: 8px;
+	box-shadow: none;
+	border: none;
 }
 
 .button:hover {
-    background-color: #ffb15e;
+	background-color: #ffb15e;
 }
+
 .button a, a:visited, a:hover, a:active {
-    color: #fff;
-    text-decoration: none;
+	color: #fff;
+	text-decoration: none;
 }
 
 .selectEmployeeForm {
-    text-align: left;
-    width: 400px;
-    margin: auto;
-    padding: 10px;
+	text-align: left;
+	width: 400px;
+	margin: auto;
+	padding: 10px;
 }
 
 .selectEmployeeForm span {
-    display: block;
+	display: block;
 }
 
 .selectChatForm {
-    text-align: left;
-    width: 400px;
-    margin: auto;
-    padding: 10px;
+	text-align: left;
+	width: 400px;
+	margin: auto;
+	padding: 10px;
 }
 
+.form-container h1{
+	margin-top: 7px;
+    margin-bottom: 10px;
+}
+
+
 .selectChatForm span {
-    display: block;
+	display: block;
 }
 
 footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 40px;
-  color: white;
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	height: 40px;
+	color: white;
 }
 
 .form-container {
-  max-width: 300px;
-  padding: 10px;
-  background-color: white;
+	max-width: 300px;
+	padding: 8px;
+	background-color: rgb(219, 219, 219);
+	border-style: ridge;
+	border-width: 10px;
+	border-color: grey;
 }
 
-.form-container .chat{
+.form-container .chat {
 	display: block;
-	overflow-y: scroll;
+	overflow-y: hidden;
+	border-style: double; 
+	border-width : 3px;
+	border-color: grey;
 	min-height: 150px;
 	max-height: 150px;
 	background-color: black;
 	color: green;
+	font-family: Consolas;
 }
 
 .form-container textarea { /*chat*/
-  width: 93%;
-  padding: 10px;
-  margin: 5px 5px 10px 0;
-  border: none;
-  background: #f1f1f1;
-  resize: none;
-  min-height: 10px;
-  overflow-y: scroll;
+	width: 92%;
+	padding: 10px;
+	margin: 5px 5px 10px 0;
+	border-style: solid; 
+	border-width : 2px;
+	background: #f1f1f1;
+	resize: none;
+	min-height: 10px;
+	overflow-y: hidden;
+	border-width: 2px;
 }
 
 .form-container textarea:focus {
-  background-color: #ddd;
-  outline: none;
+	background-color: #ddd;
+	outline: none;
 }
 
-.form-container .SendButton { 
-  background-color: #04AA6D;
-  color: white;
-  padding: 16px 20px;
-  border: none;
-  cursor: pointer;
-  width: 100%;
-  margin-bottom:10px;
-  opacity: 0.8;
+.form-container .chatTitle {
+	color: black;
+	font-style: oblique;
 }
 
-.form-container .cancel {
-  background-color: red;
+.form-container .SendButton {
+	background-color: #04AA6D;
+	color: white;
+	padding: 16px 20px;
+	border-style: outset;
+	border-width: 3px;
+	border-color: #04AA6D;
+	cursor: pointer;
+	width: 100%;
+	margin-bottom: 10px;
+	opacity: 0.8;
+}
+
+.form-container .CloseButton {
+	background-color: red;
+	border-style: outset;
+	border-width: 2px;
+	border-color: red;
+	
+	float:right;
+	
 }
 
 .form-container .btn:hover, .open-button:hover {
-  opacity: 1;
+	opacity: 1;
 }
 
 .content {
-    margin: auto;
-    width: 960px;
+	margin: auto;
+	width: 960px;
 }
-

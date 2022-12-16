@@ -63,7 +63,8 @@ public class WebSocketServer {
             	int id = (int) jsonMessage.getInt("id");
             	int sender = (int) jsonMessage.getInt("sender");
             	String msg = (String) jsonMessage.getString("msg");
-            	sessionHandler.sendMessage(id, sender, msg);
+            	String name = (String) jsonMessage.getString("name");
+            	sessionHandler.sendMessage(id, sender, msg, name);
             	
             }
         } 
