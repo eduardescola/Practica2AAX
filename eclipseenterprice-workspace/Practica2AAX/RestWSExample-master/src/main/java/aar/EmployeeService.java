@@ -34,7 +34,7 @@ public class EmployeeService {
 	public Employee getEmployee(@PathParam("id") Integer id) {
 		return employeeDao.getEmployee(id);
 	}
-	
+
 	@POST
 	@Consumes("application/x-www-form-urlencoded")
 	public Response addEmployee(@FormParam("name") String name, @FormParam("password") String password) {
@@ -47,7 +47,7 @@ public class EmployeeService {
 			return Response.status(400).build();
 		}
 	}
-	
+
 	@DELETE
 	@Path("/{id}")
 	@Consumes("application/x-www-form-urlencoded")
@@ -63,22 +63,4 @@ public class EmployeeService {
 			return Response.status(400).build();
 		}
 	}
-	
-	@POST
-	@Path("/login")
-	@Consumes("application/x-www-form-urlencoded")
-	public Response samePassword(@FormParam("password") String password, @FormParam("id") String id) {
-		int idInt = Integer.parseInt(id);
-		try {
-			int passwordOK = employeeDao.samePassword(idInt, password);
-				log.log(Level.INFO, "Checked password from employee " + id);
-			if(passwordOK==1)
-				return Response.status(200).entity("Correct password -> id: " + id + ", password: " + password).build();
-			else
-				return Response.status(400).build();
-		} catch (Exception e) {
-			return Response.status(400).build();
-		}
-	}
-
 }

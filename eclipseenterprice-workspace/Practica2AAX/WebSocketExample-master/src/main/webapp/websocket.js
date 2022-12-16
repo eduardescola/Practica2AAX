@@ -21,7 +21,7 @@ let chatName = 0;
 
 //FUNCTIONS
 
-function closeSelectEmployeeForm(){
+function closeSelectEmployeeForm() {
 	document.querySelector('.selectEmployeeForm').style.display = 'none';
 	selectEmployeeForm.reset();
 }
@@ -85,6 +85,8 @@ function onMessage(event) {
 
 	if (message.action === "addChats") {
 		createChatElement(message);
+		openSelectChatForm();
+		closeSelectEmployeeForm();
 	}
 
 	if (message.action === "add") {
@@ -127,8 +129,6 @@ selectButton.addEventListener('click', () => {
 	for (let i = 0; i < chatNodes; i++) {
 		chatList.removeChild(chatList.childNodes[0]);
 	}
-	openSelectChatForm();
-	
 });
 
 selectChatButton.addEventListener('click', () => {
@@ -155,6 +155,7 @@ selectChatButton.addEventListener('click', () => {
 });
 
 messageText.addEventListener('keyup', (e) => {
+	if (chatSelected != "5"){
 	if (e.code === "Enter") {
 		const SendAction = {
 			action: "send",
@@ -168,19 +169,22 @@ messageText.addEventListener('keyup', (e) => {
 			messageText.value = "";
 		}
 	}
+	}
 });
 
 sendButton.addEventListener('click', () => {
-	const SendAction = {
-		action: "send",
-		id: parseInt(chatSelected),
-		sender: parseInt(senderSelected),
-		name: senderName,
-		msg: messageText.value
-	};
-	if (messageText.value != "") {
-		socket.send(JSON.stringify(SendAction));
-		messageText.value = "";
+	if (chatSelected != "5"){
+		const SendAction = {
+			action: "send",
+			id: parseInt(chatSelected),
+			sender: parseInt(senderSelected),
+			name: senderName,
+			msg: messageText.value
+		};
+		if (messageText.value != "") {
+			socket.send(JSON.stringify(SendAction));
+			messageText.value = "";
+		}
 	}
 });
 

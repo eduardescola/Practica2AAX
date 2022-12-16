@@ -29,18 +29,11 @@ p {
 }
 
 .button:hover {
-	background-color: #ffb15e;
+    background-color: #ffb15e;
 }
-
-.button a, a:visited, a:hover, a:active {
-	color: #fff;
-	text-decoration: none;
-}
-
 .selectEmployeeForm {
 	text-align: left;
 	width: 400px;
-	margin: auto;
 	padding: 10px;
 }
 
@@ -51,7 +44,6 @@ p {
 .selectChatForm {
 	text-align: left;
 	width: 400px;
-	margin: auto;
 	padding: 10px;
 }
 
@@ -131,6 +123,15 @@ footer {
 	opacity: 0.8;
 }
 
+.form-container .SendButton:focus {
+	border-style: inset;
+	background-color: rgb(5, 237, 150);
+}
+.form-container .SendButton:hover {
+	background-color: rgb(5, 237, 150);
+
+}
+
 .form-container .CloseButton {
 	background-color: red;
 	border-style: outset;
@@ -138,14 +139,12 @@ footer {
 	border-color: red;
 	
 	float:right;
-	
 }
 
-.form-container .btn:hover, .open-button:hover {
-	opacity: 1;
+.form-container .CloseButton:focus {
+	border-style: inset;
 }
 
-.content {
-	margin: auto;
-	width: 960px;
+.form-container .CloseButton:hover {
+	background-color: rgb(255, 66, 66);
 }

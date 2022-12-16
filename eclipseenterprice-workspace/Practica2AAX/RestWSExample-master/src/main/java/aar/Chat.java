@@ -12,7 +12,6 @@ import jakarta.persistence.Table;
 @Entity
 public class Chat implements Serializable {
 
-	// serialVersionUID obligatorio en objetos serializables
 	private static final long serialVersionUID = 1L;
 
 	@Id

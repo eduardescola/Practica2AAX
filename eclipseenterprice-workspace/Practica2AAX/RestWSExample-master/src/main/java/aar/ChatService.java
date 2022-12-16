@@ -37,13 +37,15 @@ public class ChatService {
 
 	@POST
 	@Consumes("application/x-www-form-urlencoded")
-	public Response addChat(@FormParam("name") String name, @FormParam("employee1") int employee1, @FormParam("employee2") int employee2) {
+	public Response addChat(@FormParam("name") String name, @FormParam("employee1") int employee1,
+			@FormParam("employee2") int employee2) {
 		try {
 			chatDao.addChat(name, employee1, employee2);
 			log.log(Level.INFO, "Inserted chat " + name);
 
 			return Response.status(200)
-					.entity("addUser -> name: " + name + ", employee1: " + employee1 + ", employee2: " + employee2).build();
+					.entity("addUser -> name: " + name + ", employee1: " + employee1 + ", employee2: " + employee2)
+					.build();
 		} catch (Exception e) {
 			return Response.status(400).build();
 		}
@@ -53,20 +55,20 @@ public class ChatService {
 	@Path("/employees/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Chat[] getChatsByEmployee(@PathParam("id") Integer id) {
-		Chat[] aux=new Chat[chatDao.getAllChats().size()];
-		int i=0;
-		for (Chat c: chatDao.getAllChats()) {
+		Chat[] aux = new Chat[chatDao.getAllChats().size()];
+		int i = 0;
+		for (Chat c : chatDao.getAllChats()) {
 			if (id.equals(c.getEmployee1()) || id.equals(c.getEmployee2())) {
-				aux[i]=c;
-				i++;	
+				aux[i] = c;
+				i++;
 			}
 		}
-		Chat[] chats=new Chat[i];
-		for (int j=0; j<i;j++)
-			chats[j]=aux[j];
+		Chat[] chats = new Chat[i];
+		for (int j = 0; j < i; j++)
+			chats[j] = aux[j];
 		return chats;
 	}
-	
+
 	@DELETE
 	@Path("/{id}")
 	@Consumes("application/x-www-form-urlencoded")

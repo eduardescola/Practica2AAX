@@ -68,8 +68,5 @@ public class WebSocketServer {
             	
             }
         } 
-    }
-    
-    
-    
+    } 
 }

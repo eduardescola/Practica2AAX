@@ -54,7 +54,6 @@ public class SessionHandler {
 
 	public void addEmployee(Employee employee) {
 		employee.setId(employeeId);
-		// employees.add(employee);
 		employeeId++;
 		JsonProvider provider = JsonProvider.provider();
 		JsonObject addMessage = provider.createObjectBuilder().add("action", "add").add("id", employee.getId())
@@ -64,7 +63,6 @@ public class SessionHandler {
 
 	public void addChat(Chat chat) {
 		chat.setId(chatId);
-		// chats.add(chat);
 		chatId++;
 		JsonProvider provider = JsonProvider.provider();
 		JsonObject addMessage = provider.createObjectBuilder().add("action", "add").add("id", chat.getId())
@@ -168,15 +166,4 @@ public class SessionHandler {
 
 		return chats;
 	}
-	/*
-	public String httpSamePassword(int id, String password) throws IOException, InterruptedException, URISyntaxException {
-		ClienteHttp post = new ClienteHttp();
-
-		HttpResponse<String> message = post.httpSamePassword(id, password);
-
-		String resp = message.body();
-
-		return resp;
-	}
-	*/
 }

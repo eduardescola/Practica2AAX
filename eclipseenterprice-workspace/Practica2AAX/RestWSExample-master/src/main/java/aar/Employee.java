@@ -8,39 +8,38 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
-
 @Entity
 public class Employee implements Serializable {
 
-   //serialVersionUID obligatorio en objetos serializables
-   private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-   @Id
-   @GeneratedValue(strategy = GenerationType.SEQUENCE)
-   private int id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	private int id;
 
-   @Column(nullable = false)
-   private String name;
+	@Column(nullable = false)
+	private String name;
 
-   @Column(nullable = false)
-   private String password;
+	@Column(nullable = false)
+	private String password;
 
-   public Employee() {}
+	public Employee() {
+	}
 
-   public Employee(String name, String password) {
-      this.name = name;
-      this.password = password;
-   }
+	public Employee(String name, String password) {
+		this.name = name;
+		this.password = password;
+	}
 
-   public int getId() {
-      return id;
-   }
+	public int getId() {
+		return id;
+	}
 
-   public String getName() {
-      return name;
-   }
-   
-   public String getPassword() {
-      return password;
-   }
+	public String getName() {
+		return name;
+	}
+
+	public String getPassword() {
+		return password;
+	}
 }
