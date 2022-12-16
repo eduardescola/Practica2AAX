@@ -126,9 +126,11 @@ footer {
 .form-container .SendButton:focus {
 	border-style: inset;
 	background-color: rgb(5, 237, 150);
+	border-color: rgb(5, 237, 150);
 }
 .form-container .SendButton:hover {
 	background-color: rgb(5, 237, 150);
+	border-color: rgb(5, 237, 150);
 
 }
 
@@ -143,8 +145,11 @@ footer {
 
 .form-container .CloseButton:focus {
 	border-style: inset;
+	background-color: rgb(255, 66, 66);
+	border-color: rgb(255, 66, 66);
 }
 
 .form-container .CloseButton:hover {
 	background-color: rgb(255, 66, 66);
+	border-color: rgb(255, 66, 66);
 }
